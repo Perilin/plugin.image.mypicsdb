@@ -762,11 +762,11 @@ class MyPictureDB(object):
 
         if len(set_tags) == 0 and len(unset_tags) == 0 and start_date == '' and end_date == '':
             return
-
+        match_all = '1' if match_all not in [0,'0',False] else '0' # Sometimes match_all can be ambiguous
         set_tags_array = set_tags.split("|||")
         unset_tags_array = unset_tags.split("|||")    
 
-        outer_select = "SELECT distinct strPath,strFilename, ImageDateTime FROM FILES WHERE 1=1 "
+        outer_select = "SELECT distinct strPath,strFilename, ImageDateTime FROM Files WHERE 1=1 "
 
         # These selects are joined with an IN clause
         inner_select = "SELECT tif.idfile FROM TagContents tc, TagsInFiles tif , TagTypes tt WHERE tif.idTagContent = tc.idTagContent AND tc.idTagType = tt.idTagType "
